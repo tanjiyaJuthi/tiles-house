@@ -34,6 +34,7 @@ const CategoryCardSlider = ({ categories }) => {
                                 alt={category.name}
                                 fill
                                 className="object-cover"
+                                sizes="100"
                             />
                         </div>
 

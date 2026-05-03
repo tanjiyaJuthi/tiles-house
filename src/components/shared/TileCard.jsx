@@ -2,9 +2,6 @@ import {Chip, Link} from "@heroui/react";
 import Image from "next/image";
 
 const TileCard = ({tile}) => {
-
-    console.log(tile);
-
     return (
         <div className="">
             <div className="relative w-full aspect-square">

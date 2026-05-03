@@ -1,8 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Link } from "@heroui/react";
+import { Avatar, Button, Link } from "@heroui/react";
 import { usePathname } from "next/navigation";
+import { signOut, useSession } from "@/lib/auth-client";
+import Image from "next/image";
+import { authClient } from "@/lib/auth-client";
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -21,6 +24,18 @@ const Navbar = () => {
 
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
+
+    const {data, isPending} = useSession();
+
+    // if(isPending) {
+    //     return <div>Loading....</div>;
+    // }
+
+    const user = data?.user;
+
+    const handleSignOut = async () => {
+        await authClient.signOut();
+    }
 
     const isActive = !isHome || scrolled || isMenuOpen;
     const textColor = isActive ? "text-black" : "text-white";
@@ -52,23 +67,50 @@ const Navbar = () => {
 
     const secondaryLinks = (
         <>
-            <li>
-                <Link
-                    href="/login"
-                    className={`px-4 py-2 border no-underline rounded-none ${textColor}`}
-                >
-                    Login
-                </Link>
-            </li>
+            { !user
+                ? <>
+                    <li>
+                        <Link
+                            href="/login"
+                            className={`px-4 py-2 border no-underline rounded-none ${textColor}`}
+                        >
+                            Login
+                        </Link>
+                    </li>
 
-            <li>
-                <Link
-                    href="/registration"
-                    className="no-underline px-4 py-2 bg-rose-700 text-white rounded-none border border-rose-700"
-                >
-                    Registration
-                </Link>
-            </li>
+                    <li>
+                        <Link
+                            href="/registration"
+                            className="no-underline px-4 py-2 bg-rose-700 text-white rounded-none border border-rose-700"
+                        >
+                            Registration
+                        </Link>
+                    </li>
+                </>
+                : <>
+                    <li className="flex items-center gap-2">
+                        <Avatar size="md" className="w-8 h-8 rounded-none">
+                            <Avatar.Image
+                                alt="Profile Image"
+                                src={user?.image}
+                                className="object-cover"
+                            />
+
+                            <Avatar.Fallback className="flex items-center justify-center rounded-none">
+                                {user?.name?.charAt(0)?.toUpperCase()}
+                            </Avatar.Fallback>
+                        </Avatar>
+                    </li>
+                    <li>
+                        <Button
+                            onClick={handleSignOut}
+                            className="no-underline px-4 py-2 bg-rose-700 text-white rounded-none border border-rose-700"
+                        >
+                            Logged Out
+                        </Button>
+                    </li>
+                </>
+            }
         </>
     );
 

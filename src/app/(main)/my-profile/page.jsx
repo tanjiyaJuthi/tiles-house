@@ -1,14 +1,14 @@
+'use client'
+
 import { Button, Card } from "@heroui/react";
 import { Person } from "@gravity-ui/icons";
 import Image from "next/image";
 import Link from "next/link";
+import { useSession } from "@/lib/auth-client";
 
 const MyProfilePage = () => {
-  const user = {
-    name: "John Doe",
-    email: "john.doe@example.com",
-    image: "",
-  };
+  const {data, isPending} = useSession();
+  const user = data?.user; console.log(user?.image);
 
   return (
     <div className="mt-21">
@@ -37,9 +37,9 @@ const MyProfilePage = () => {
             
             {/* Avatar */}
             <div className="shrink-0">
-              {user.image ? (
+              {user?.image ? (
                 <Image
-                  src={user.image}
+                  src={user?.image}
                   alt="Profile"
                   width={96}
                   height={96}
@@ -54,13 +54,13 @@ const MyProfilePage = () => {
 
             {/* Info */}
             <div className="flex-1 text-center md:text-left">
-              <h2 className="text-xl font-semibold">{user.name}</h2>
-              <p className="text-default-500">{user.email}</p>
+              <h2 className="text-xl font-semibold">{user?.name}</h2>
+              <p className="text-default-500">{user?.email}</p>
             </div>
 
             {/* Action */}
             <div>
-              <Link href="/profile/edit" className="px-4 py-2 border no-underline rounded-none">
+              <Link href="/my-profile/edit" className="px-4 py-2 border no-underline rounded-none">
                   Edit Profile
               </Link>
             </div>
