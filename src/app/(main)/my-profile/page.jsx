@@ -8,7 +8,7 @@ import { useSession } from "@/lib/auth-client";
 
 const MyProfilePage = () => {
   const {data, isPending} = useSession();
-  const user = data?.user; console.log(user?.image);
+  const user = data?.user;
 
   return (
     <div className="mt-21">
