@@ -121,7 +121,7 @@ const Navbar = () => {
                             href="/"
                             className={`text-2xl font-bold no-underline ${textColor}`}
                         >
-                            TilesGallery
+                            TilesHouse
                         </Link>
                     </div>
 

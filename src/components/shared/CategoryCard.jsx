@@ -1,54 +1,31 @@
-'use client';
-
-import { Link } from "@heroui/react";
+import {Chip, Link} from "@heroui/react";
 import Image from "next/image";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
 
-// IMPORTANT: import Swiper styles
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-
-const CategoryCard = ({ categories }) => {
+const CategoryCard = ({category}) => {
     return (
-        <div className="relative w-full px-6">
-            <Swiper
-                slidesPerView={4}
-                spaceBetween={30}
-                navigation={true}
-                pagination={false}
-                modules={[Navigation, Pagination]}
-                className="mySwiper"
-                breakpoints={{
-                    320: { slidesPerView: 1 },
-                    640: { slidesPerView: 2 },
-                    1024: { slidesPerView: 4 },
-                }}
-            >
-                {categories?.map((category) => (
-                    <SwiperSlide key={category.id}>
-                        <div className="relative w-full aspect-square">
-                            <Image
-                                src={category.image}
-                                alt={category.name}
-                                fill
-                                className="object-cover"
-                            />
-                        </div>
+        <div className="">
+            <div className="relative w-full aspect-square">
+                <Image
+                    src={category.image}
+                    alt={category.name}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover"
+                />
 
-                        <div className="space-y-2 mt-2">
-                            <h2 className="font-semibold text-gray-500 text-xl">
-                                {category.name}
-                            </h2>
+                <Chip size="sm" className="absolute right-2 top-2 rounded-none">{category.category}</Chip>
+            </div>
 
-                            <Link href={`/all-categories/${category.id}`}>
-                                View Details
-                            </Link>
-                        </div>
-                    </SwiperSlide>
-                ))}
-            </Swiper>
+            <div className="space-y-2 mt-2">
+                <h2 className="font-bold text-xl">{category.name}</h2>
+
+                <Link
+                    href={`/all-categories/${category.id}`}
+                    className="border border-mist-300 no-underline rounded-none inline-block px-5 py-2 bg-transparent transition-all duration-200 hover:opacity-90 hover:scale-105"
+                >
+                    Learn More
+                </Link>
+            </div>
         </div>
     );
 };

@@ -9,7 +9,7 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "Tiles Gallery",
+  title: "Tiles House",
   description: "Developed by Tanjiya Zahir Bhuiyan",
 };
 

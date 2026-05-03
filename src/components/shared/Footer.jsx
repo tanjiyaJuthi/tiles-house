@@ -12,7 +12,7 @@ const Footer = () => {
           {/* Brand */}
           <div className="space-y-4">
             <h2 className="text-xl font-semibold">
-              TilesGallery
+              TilesHouse
             </h2>
 
             <p className="text-sm text-gray-400 max-w-xs">

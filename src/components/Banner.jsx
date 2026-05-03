@@ -20,9 +20,6 @@ const Banner = () => {
 
             {/* CONTENT WRAPPER (controls max width) */}
             <div className="relative z-10 h-full max-w-7xl mx-auto px-4">
-                
-                
-
                 {/* Hero content */}
                 <div className="flex flex-col items-center justify-center text-center text-white h-full">
                     <h1 className="text-4xl md:text-6xl font-bold mb-6 mt-25">
