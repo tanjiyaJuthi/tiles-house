@@ -5,11 +5,18 @@ import TileCard from "@/components/shared/TileCard";
 
 const AllTilesClient = ({ tiles }) => {
     const [visibleCount, setVisibleCount] = useState(4);
+    const [loading, setLoading] = useState(false);
 
     const loadMore = () => {
-        setVisibleCount(prev =>
-            Math.min(prev + 4, tiles.length)
-        );
+        setLoading(true);
+
+        setTimeout(() => {
+            setVisibleCount(prev =>
+                Math.min(prev + 4, tiles.length)
+            );
+            
+            setLoading(false);
+        }, 300);
     };
 
     return (
@@ -27,10 +34,11 @@ const AllTilesClient = ({ tiles }) => {
             {visibleCount < tiles.length && (
                 <div className="flex justify-center mt-10">
                     <button
+                        disabled={loading}
                         onClick={loadMore}
-                        className="px-6 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition"
+                        className="px-6 py-3 bg-black text-white hover:bg-gray-800 transition"
                     >
-                        Load More
+                        {loading ? "Loading..." : "Load More"}
                     </button>
                 </div>
             )}
