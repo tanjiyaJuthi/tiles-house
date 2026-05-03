@@ -1,5 +1,28 @@
+'use client'
+
+import { useState } from "react";
+import { authClient } from "@/lib/auth-client"; 
+
 export async function getSiteData(domain) {
     return {
         name: domain || 'Unknown Site',
     };
 }
+
+export const useGoogleAuth = () => {
+  const [googleLoading, setGoogleLoading] = useState(false);
+
+  const handleGoogleAuth = async () => {
+    setGoogleLoading(true);
+    try {
+      await authClient.signIn.social({
+        provider: "google",
+        callbackURL: "/",
+      });
+    } finally {
+      setGoogleLoading(false);
+    }
+  };
+
+  return { handleGoogleAuth, googleLoading };
+};

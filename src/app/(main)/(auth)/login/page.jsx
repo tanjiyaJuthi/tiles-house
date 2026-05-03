@@ -1,5 +1,6 @@
 "use client";
 import { authClient } from "@/lib/auth-client";
+import { useGoogleAuth } from "@/lib/helper/utils";
 import { Check, Eye, EyeSlash } from "@gravity-ui/icons";
 import {
   Button,
@@ -15,23 +16,31 @@ import Image from "next/image";
 import { useState } from "react";
 
 const LoginPage = () => {
+  const { handleGoogleAuth, googleLoading } = useGoogleAuth();
   const [isVisible, setIsVisible] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const login = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
-    const formData = new FormData(e.currentTarget);
-    const userData = Object.fromEntries(formData.entries());
+    try {
+      const formData = new FormData(e.currentTarget);
+      const userData = Object.fromEntries(formData.entries());
 
-    const { data, error } = await authClient.signIn.email({
-      email: userData.email,
-      password: userData.password,
-      rememberMe: true,
-      callbackURL: "/",
-    });
+      const { data, error } = await authClient.signIn.email({
+        email: userData.email,
+        password: userData.password,
+        rememberMe: true,
+        callbackURL: "/",
+      });
 
-    console.log({ data, error });
+      if (error) {
+        alert(error.message);
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -55,85 +64,83 @@ const LoginPage = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto flex justify-center items-center py-12 mt-20">
-        <Form
-          className="border border-mist-200 w-full max-w-md flex flex-col gap-4 shadow-lg bg-white p-6"
-          onSubmit={login}
-        >
-          <Fieldset.Legend className="text-center mb-10 text-xl">
-            Login with Us!
-          </Fieldset.Legend>
-          <TextField
-            isRequired
-            name="email"
-            type="email"
-            validate={(value) => {
-              if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
-                return "Please enter a valid email address";
-              }
-              return null;
-            }}
-          >
-            <Label>Email</Label>
-            <Input
-              name="email"
-              placeholder="john@example.com"
-              className="rounded-none"
-            />
-            <FieldError />
-          </TextField>
+      <div className="flex items-start justify-center pt-10 px-4">
+        <div className="border border-mist-200 w-full max-w-md shadow-lg bg-white p-6 flex flex-col gap-4">
+          <h2 className="text-center text-2xl font-semibold">
+            Login
+          </h2>
 
-          <TextField className="w-full max-w-70" name="password">
-            <Label>Password</Label>
-            <InputGroup className="rounded-none">
-              <InputGroup.Input
-                className="w-full max-w-70"
-                type={isVisible ? "text" : "password"}
-                name="password"
-                placeholder="your password"
+          <Form onSubmit={handleLogin} className="flex flex-col gap-4"> 
+            <TextField isRequired>
+              <Label>Email</Label>
+              <Input
+                name="email"
+                placeholder="john@example.com"
+                className="rounded-none"
               />
-              <InputGroup.Suffix className="pr-0">
-                <Button
-                  isIconOnly
-                  aria-label={isVisible ? "Hide password" : "Show password"}
-                  size="sm"
-                  variant="ghost"
-                  onPress={() => setIsVisible(!isVisible)}
-                >
-                  {isVisible ? (
-                    <Eye className="size-4" />
-                  ) : (
-                    <EyeSlash className="size-4" />
-                  )}
-                </Button>
-              </InputGroup.Suffix>
-            </InputGroup>
-          </TextField>
+              <FieldError />
+            </TextField>
 
-          <div className="flex gap-2">
-            <Button
-              type="submit"
-              isDisabled={loading}
-              className="rounded-none bg-mist-800"
-            >
-              {loading ? (
-                "Logging..."
-              ) : (
-                <>
-                  {" "}
-                  <Check /> Login{" "}
-                </>
-              )}
-            </Button>
+            <TextField isRequired className="w-full max-w-70">
+              <Label>Password</Label>
+              <InputGroup className="rounded-none">
+                <InputGroup.Input
+                  type={isVisible ? "text" : "password"}
+                  name="password"
+                  placeholder="your password"
+                />
+                <InputGroup.Suffix className="pr-0">
+                  <Button
+                    isIconOnly
+                    size="sm"
+                    variant="ghost"
+                    onPress={() => setIsVisible(!isVisible)}
+                  >
+                    {isVisible ? (
+                      <Eye className="size-4" />
+                    ) : (
+                      <EyeSlash className="size-4" />
+                    )}
+                  </Button>
+                </InputGroup.Suffix>
+              </InputGroup>
+            </TextField>
 
-            <Button
-              type="reset"
-              className="rounded-none text-black bg-transparent border border-mist-800"
-            >
-              Reset
-            </Button>
+            <div className="flex gap-2">
+              <Button
+                type="submit"
+                isDisabled={loading}
+                className="rounded-none bg-mist-800"
+              >
+                {loading ? "Logging..." : <><Check /> Login</>}
+              </Button>
+
+              <Button
+                type="reset"
+                className="rounded-none text-black bg-transparent border border-mist-800"
+              >
+                Reset
+              </Button>
+            </div>
+          </Form>
+
+          {/* Divider */}
+          <div className="flex items-center gap-2">
+            <div className="h-px bg-gray-200 flex-1" />
+            <span className="text-xs text-gray-400">or</span>
+            <div className="h-px bg-gray-200 flex-1" />
           </div>
-        </Form>
+
+          {/* Google Button */}
+          <Button
+            isDisabled={googleLoading}
+            type="button"
+            className="w-full rounded-none flex items-center justify-center gap-2 text-white px-2 py-4 bg-rose-800"
+            onClick={handleGoogleAuth}
+          >
+            {googleLoading ? "Redirect to google..." : <>Continue with Google</>}
+          </Button>
+        </div>  
       </div>
     </div>
   );

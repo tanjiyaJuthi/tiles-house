@@ -1,6 +1,7 @@
 "use client";
 
 import { authClient } from "@/lib/auth-client";
+import { useGoogleAuth } from "@/lib/helper/utils";
 import { Check } from "@gravity-ui/icons";
 import {
   Button,
@@ -17,9 +18,10 @@ import { redirect } from "next/navigation";
 import { useState } from "react";
 
 const RegistrationPage = () => {
+  const { handleGoogleAuth, googleLoading } = useGoogleAuth();
   const [loading, setLoading] = useState(false);
 
-  const registration = async (e) => {
+  const handleRegistration = async (e) => {
     e.preventDefault();
     setLoading(true);
 
@@ -69,119 +71,135 @@ const RegistrationPage = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto flex justify-center items-center py-12 mt-20">
-        <Form
-          className="border border-mist-200 w-full max-w-md flex flex-col gap-4 shadow-lg bg-white p-6"
-          onSubmit={registration}
-        >
-          <Fieldset.Legend className="text-center mb-10 text-xl">
-            Register with Us!
-          </Fieldset.Legend>
+      <div className="flex items-start justify-center pt-10 px-4">
+        <div className="border border-mist-200 w-full max-w-md shadow-lg bg-white p-6 flex flex-col gap-4">
+          <h2 className="text-center text-2xl font-semibold">
+            Register
+          </h2>
 
-          <TextField
-            isRequired
-            name="name"
-            type="text"
-            validate={(value) => {
-              if (value.length < 3) {
-                return "Name must be at least 3 characters";
-              }
-              return null;
-            }}
-          >
-            <Label>Name</Label>
-            <Input
+          <Form onSubmit={handleRegistration} className="flex flex-col gap-4">
+            <TextField
+              isRequired
               name="name"
-              placeholder="John Doe"
-              className="rounded-none"
-            />
-            <FieldError />
-          </TextField>
+              type="text"
+              validate={(value) => {
+                if (value.length < 3) {
+                  return "Name must be at least 3 characters";
+                }
+                return null;
+              }}
+            >
+              <Label>Name</Label>
+              <Input
+                name="name"
+                placeholder="John Doe"
+                className="rounded-none"
+              />
+              <FieldError />
+            </TextField>
 
-          <TextField isRequired name="image" type="text">
-            <Label>Image Url</Label>
-            <Input
-              name="image"
-              placeholder="Place an image url"
-              className="rounded-none"
-            />
-            <FieldError />
-          </TextField>
+            <TextField isRequired name="image" type="text">
+              <Label>Image Url</Label>
+              <Input
+                name="image"
+                placeholder="Place an image url"
+                className="rounded-none"
+              />
+              <FieldError />
+            </TextField>
 
-          <TextField
-            isRequired
-            name="email"
-            type="email"
-            validate={(value) => {
-              if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
-                return "Please enter a valid email address";
-              }
-              return null;
-            }}
-          >
-            <Label>Email</Label>
-            <Input
+            <TextField
+              isRequired
               name="email"
-              placeholder="john@example.com"
-              className="rounded-none"
-            />
-            <FieldError />
-          </TextField>
+              type="email"
+              validate={(value) => {
+                if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
+                  return "Please enter a valid email address";
+                }
+                return null;
+              }}
+            >
+              <Label>Email</Label>
+              <Input
+                name="email"
+                placeholder="john@example.com"
+                className="rounded-none"
+              />
+              <FieldError />
+            </TextField>
 
-          <TextField
-            isRequired
-            minLength={8}
-            name="password"
-            type="password"
-            validate={(value) => {
-              if (value.length < 8) {
-                return "Password must be at least 8 characters";
-              }
-              if (!/[A-Z]/.test(value)) {
-                return "Password must contain at least one uppercase letter";
-              }
-              if (!/[0-9]/.test(value)) {
-                return "Password must contain at least one number";
-              }
-              return null;
-            }}
-          >
-            <Label>Password</Label>
-            <Input
+            <TextField
+              isRequired
+              minLength={8}
               name="password"
-              placeholder="Enter your password"
-              className="rounded-none"
-            />
-            <Description>
-              Must be at least 8 characters with 1 uppercase and 1 number
-            </Description>
-            <FieldError />
-          </TextField>
-
-          <div className="flex gap-2">
-            <Button
-              type="submit"
-              isDisabled={loading}
-              className="rounded-none bg-mist-800"
+              type="password"
+              validate={(value) => {
+                if (value.length < 8) {
+                  return "Password must be at least 8 characters";
+                }
+                if (!/[A-Z]/.test(value)) {
+                  return "Password must contain at least one uppercase letter";
+                }
+                if (!/[0-9]/.test(value)) {
+                  return "Password must contain at least one number";
+                }
+                return null;
+              }}
             >
-              {loading ? (
-                "Registering..."
-              ) : (
-                <>
-                  {" "}
-                  <Check /> Registration{" "}
-                </>
-              )}
-            </Button>
+              <Label>Password</Label>
+              <Input
+                name="password"
+                placeholder="Enter your password"
+                className="rounded-none"
+              />
+              <Description>
+                Must be at least 8 characters with 1 uppercase and 1 number
+              </Description>
+              <FieldError />
+            </TextField>
 
-            <Button
-              type="reset"
-              className="rounded-none text-black bg-transparent border border-mist-800"
-            >
-              Reset
-            </Button>
+            <div className="flex gap-2">
+              <Button
+                type="submit"
+                isDisabled={loading}
+                className="rounded-none bg-mist-800"
+              >
+                {loading ? (
+                  "Registering..."
+                ) : (
+                  <>
+                    {" "}
+                    <Check /> Registration{" "}
+                  </>
+                )}
+              </Button>
+
+              <Button
+                type="reset"
+                className="rounded-none text-black bg-transparent border border-mist-800"
+              >
+                Reset
+              </Button>
+            </div>
+          </Form>
+          
+          {/* Divider */}
+          <div className="flex items-center gap-2">
+            <div className="h-px bg-gray-200 flex-1" />
+            <span className="text-xs text-gray-400">or</span>
+            <div className="h-px bg-gray-200 flex-1" />
           </div>
-        </Form>
+
+          {/* Google Button */}
+          <Button
+            isDisabled={googleLoading}
+            type="button"
+            className="w-full rounded-none flex items-center justify-center gap-2 text-white px-2 py-4 bg-rose-800"
+            onClick={handleGoogleAuth}
+          >
+            {googleLoading ? "Redirect to google..." : <>Continue with Google</>}
+          </Button>
+        </div>  
       </div>
     </div>
   );
