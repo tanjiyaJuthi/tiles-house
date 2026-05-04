@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Avatar, Button, Link } from "@heroui/react";
-import { usePathname } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
 import { signOut, useSession } from "@/lib/auth-client";
 import Image from "next/image";
 import { authClient } from "@/lib/auth-client";
@@ -27,14 +27,12 @@ const Navbar = () => {
 
     const {data, isPending} = useSession();
 
-    // if(isPending) {
-    //     return <div>Loading....</div>;
-    // }
-
     const user = data?.user;
 
     const handleSignOut = async () => {
         await authClient.signOut();
+
+        redirect('/');
     }
 
     const isActive = !isHome || scrolled || isMenuOpen;
@@ -89,17 +87,19 @@ const Navbar = () => {
                 </>
                 : <>
                     <li className="flex items-center gap-2">
-                        <Avatar size="md" className="w-8 h-8 rounded-none">
-                            <Avatar.Image
-                                alt="Profile Image"
-                                src={user?.image}
-                                className="object-cover"
-                            />
+                        <Link href="my-profile">
+                            <Avatar size="md" className="w-8 h-8 rounded-none">
+                                <Avatar.Image
+                                    alt="Profile Image"
+                                    src={user?.image}
+                                    className="object-cover"
+                                />
 
-                            <Avatar.Fallback className="flex items-center justify-center rounded-none">
-                                {user?.name?.charAt(0)?.toUpperCase()}
-                            </Avatar.Fallback>
-                        </Avatar>
+                                <Avatar.Fallback className="flex items-center justify-center rounded-none">
+                                    {user?.name?.charAt(0)?.toUpperCase()}
+                                </Avatar.Fallback>
+                            </Avatar>
+                        </Link>
                     </li>
                     <li>
                         <Button
@@ -116,7 +116,7 @@ const Navbar = () => {
 
     return (
         <nav
-            className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b
+            className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b px-5 lg:px-0
             ${
                 isActive
                     ? "bg-white text-black border-gray-200"

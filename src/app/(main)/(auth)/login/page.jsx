@@ -81,9 +81,9 @@ const LoginPage = () => {
               <FieldError />
             </TextField>
 
-            <TextField isRequired className="w-full max-w-70">
+            <TextField isRequired className="w-full max-w-100">
               <Label>Password</Label>
-              <InputGroup className="rounded-none">
+              <InputGroup className="rounded-none w-full">
                 <InputGroup.Input
                   type={isVisible ? "text" : "password"}
                   name="password"

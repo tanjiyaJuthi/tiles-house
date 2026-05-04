@@ -31,7 +31,7 @@ const MyProfilePage = () => {
         </div>
       </div>
     
-      <div className="max-w-7xl mx-auto">
+      <div className=" px-5 lg:px-0 max-w-7xl mx-auto">
         <div className="p-6 shadow-md mt-10">
           <div className="flex flex-col md:flex-row items-center gap-6">
             

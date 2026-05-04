@@ -29,7 +29,7 @@ const AllCategoriesPage =  async () => {
                 </div>
             </div>
 
-            <div className="max-w-7xl mx-auto">
+            <div className=" px-5 lg:px-0 max-w-7xl mx-auto">
                 <AllCategoryClient categories={categories} />
             </div>
         </div>

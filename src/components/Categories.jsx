@@ -8,10 +8,10 @@ const Categories = async () => {
   const categories = await res.json();
 
   return (
-    <div className="max-w-7xl mx-auto mt-20">
+    <div className="max-w-7xl mx-auto mt-20 px-5 lg:px-0">
       <div className="flex items-center justify-center gap-4 mt-5 w-full">
         <span className="h-px flex-1 bg-gray-200"></span>
-        <h2 className="text-3xl font-semibold whitespace-nowrap ">
+        <h2 className="text-3xl font-semibold text-center">
           EXPLORE Tiles COLLECTIONS BY CATEGORY
         </h2>
         <span className="h-px flex-1 bg-gray-200"></span>

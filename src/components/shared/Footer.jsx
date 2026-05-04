@@ -3,7 +3,7 @@ import { Globe, Envelope, MapPin, ArrowUpRightFromSquare } from "@gravity-ui/ico
 
 const Footer = () => {
   return (
-    <footer className="relative mt-20 border-t border-gray-200 bg-mist-800 text-white">
+    <footer className=" px-5 lg:px-0 relative mt-20 border-t border-gray-200 bg-mist-800 text-white">
       
       <div className="max-w-7xl mx-auto pt-10 pb-6">
         

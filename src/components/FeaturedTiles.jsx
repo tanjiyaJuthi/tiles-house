@@ -7,11 +7,11 @@ const FeaturedTiles = async () => {
     const featuredTiles = tiles.slice(0,4);
 
     return (
-        <div className="max-w-7xl mx-auto mt-20">
+        <div className="max-w-7xl mx-auto mt-20 px-5 lg:px-0">
             <div className="space-y-8 text-center">
                 <div className="flex items-center justify-center gap-4 mt-5 w-full">
                     <span className="h-px flex-1 bg-gray-200"></span>
-                    <h2 className="text-3xl font-bold whitespace-nowrap">
+                    <h2 className="text-3xl font-bold">
                         Featured Tiles
                     </h2>
                     <span className="h-px flex-1 bg-gray-200"></span>

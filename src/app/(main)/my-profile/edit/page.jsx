@@ -64,7 +64,7 @@ const ProfileEditPage = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto flex justify-center items-center py-12 mt-20">
+      <div className="max-w-7xl mx-auto flex justify-center items-center py-12 mt-20 px-5 lg:px-0">
         <Form
           className="border border-mist-200 w-full max-w-md flex flex-col gap-4 shadow-lg bg-white p-6"
           onSubmit={updateProfile}

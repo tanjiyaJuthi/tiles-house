@@ -124,7 +124,7 @@ const TileDetailsPage = async ({ params }) => {
                             />
 
                             <div className="space-y-5">
-                                <h3 className="text-6xl text-mist-800">Features</h3>
+                                <h3 className="text-2xl lg:text-6xl text-mist-800">Features</h3>
                                 <ul>
                                     {tile.features.map((feature, index) => (
                                         <li key={index} className="flex gap-2"><Check /> {feature}</li>
@@ -146,7 +146,7 @@ const TileDetailsPage = async ({ params }) => {
                             />
 
                             <div className="space-y-5">
-                                <h3 className="text-6xl text-mist-800">Specifications</h3>
+                                <h3 className="text-2xl lg:text-6xl text-mist-800">Specifications</h3>
                                 <div>
                                     <p>Dimensions: {tile.specification.dimensions}</p>
                                     <p>Material : {tile.specification.material}</p>
