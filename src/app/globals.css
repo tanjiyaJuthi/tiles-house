@@ -37,11 +37,14 @@
     background: white !important;
 }
 
-/* spacing outside slider
-.swiper-button-prev {
-    left: -15px !important;
+.tab-container {
+    background-color: #ebebec !important;
+    padding: 10px 0;
+    font-size: 30px !important;
 }
 
-.swiper-button-next {
-    right: -15px !important;
-} */
+.tabs__indicator {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    font-size: 30px !important;
+}

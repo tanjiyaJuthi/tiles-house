@@ -3,12 +3,6 @@
 import { useState } from "react";
 import { authClient } from "@/lib/auth-client"; 
 
-export async function getSiteData(domain) {
-    return {
-        name: domain || 'Unknown Site',
-    };
-}
-
 export const useGoogleAuth = () => {
   const [googleLoading, setGoogleLoading] = useState(false);
 

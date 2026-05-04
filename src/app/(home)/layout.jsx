@@ -4,7 +4,7 @@ const layout = ({children}) => {
     return (
         <div>
             
-            <main className="">
+            <main className="text-mist-800">
                 {children}
             </main>  
             

@@ -12,7 +12,7 @@ import 'swiper/css/pagination';
 
 const CategoryCardSlider = ({ categories }) => {
     return (
-        <div className="relative w-full px-6">
+        <div className="relative w-full">
             <Swiper
                 slidesPerView={4}
                 spaceBetween={30}

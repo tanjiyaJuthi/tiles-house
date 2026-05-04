@@ -39,7 +39,7 @@ const AllCategoryClient = ({ categories }) => {
                     <button
                         disabled={loading}
                         onClick={loadMore}
-                        className="px-6 py-3 bg-black text-white hover:bg-gray-800 transition disabled:opacity-50"
+                        className="px-6 py-3 bg-mist-800 text-white hover:bg-gray-800 transition disabled:opacity-50"
                     >
                         {loading ? "Loading..." : "Load More"}
                     </button>

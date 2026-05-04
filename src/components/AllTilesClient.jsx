@@ -36,7 +36,7 @@ const AllTilesClient = ({ tiles }) => {
                     <button
                         disabled={loading}
                         onClick={loadMore}
-                        className="px-6 py-3 bg-black text-white hover:bg-gray-800 transition"
+                        className="px-6 py-3 bg-mist-800 text-white hover:bg-gray-800 transition"
                     >
                         {loading ? "Loading..." : "Load More"}
                     </button>

@@ -1,6 +1,6 @@
 "use client";
 import { authClient } from "@/lib/auth-client";
-import { useGoogleAuth } from "@/lib/helper/utils";
+import { useGoogleAuth } from "@/lib/helper/utils-client";
 import { Check, Eye, EyeSlash } from "@gravity-ui/icons";
 import {
   Button,

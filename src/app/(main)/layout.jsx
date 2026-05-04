@@ -3,7 +3,7 @@ import Navbar from "@/components/shared/Navbar";
 
 const layout = ({children}) => {
     return (
-        <div className="main-layout">
+        <div className="main-layout text-mist-800">
             <Navbar />
 
             <main>

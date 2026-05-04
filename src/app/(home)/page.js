@@ -5,7 +5,7 @@ import NewArrivals from "@/components/NewArrivals";
 
 export default function Home() {
   return (
-    <div className="">
+    <div className="text-mist-800">
       <Banner />
       <NewArrivals />
       <FeaturedTiles />
